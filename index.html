@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+  />
+  <title>Space Runner Pro PWA</title>
+
+  <meta name="theme-color" content="#081021" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Space Runner" />
+  <meta name="mobile-web-app-capable" content="yes" />
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="game-shell">
+    <div class="game-container" id="game">
+      <div class="stars"></div>
+      <div class="planet planet-1"></div>
+      <div class="planet planet-2"></div>
+
+      <div class="hud">
+        <div class="hud-card">
+          <div>Player: <span id="playerNameDisplay">Player</span></div>
+          <div>Score: <span id="score">0</span></div>
+          <div>Coins: <span id="coins">0</span></div>
+          <div>Lives: <span id="lives">3</span></div>
+        </div>
+
+        <div class="hud-card">
+          <div>Level: <span id="level">1</span></div>
+          <div>Time: <span id="time">0</span>s</div>
+          <div>High Score: <span id="highScore">0</span></div>
+          <div>Shield: <span id="shieldStatus">No</span></div>
+        </div>
+      </div>
+
+      <div class="top-controls">
+        <button id="musicToggleBtn">Music: Off</button>
+        <button id="pauseBtn">Pause</button>
+      </div>
+
+      <div class="menu-overlay" id="setupPanel">
+        <div class="panel">
+          <h1>Space Runner Pro</h1>
+          <p class="subtitle">Installable iPhone Web App</p>
+
+          <input type="text" id="playerNameInput" placeholder="Enter player name" />
+          <input type="file" id="photoInput" accept="image/*" />
+
+          <div class="preview-box">
+            <img id="previewImg" alt="Preview" />
+            <div class="preview-placeholder" id="previewPlaceholder">Photo Preview</div>
+          </div>
+
+          <div class="menu-actions">
+            <button id="startBtn">Start Game</button>
+          </div>
+
+          <div class="help-text">
+            iPhone: Open in Safari and use Share → Add to Home Screen
+          </div>
+
+          <div class="leaderboard-box">
+            <h3>Leaderboard</h3>
+            <ol id="leaderboardList"></ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="message-overlay hidden" id="startMessage">
+        <div class="panel small-panel">
+          <h2>Ready?</h2>
+          <p>Tap JUMP or press SPACE / ↑ to start.</p>
+        </div>
+      </div>
+
+      <div class="message-overlay hidden" id="pauseScreen">
+        <div class="panel small-panel">
+          <h2>Paused</h2>
+          <button id="resumeBtn">Resume</button>
+        </div>
+      </div>
+
+      <div class="message-overlay hidden" id="bossAlert">
+        <div class="panel small-panel">
+          <h2>Boss Incoming!</h2>
+          <p>Prepare to attack.</p>
+        </div>
+      </div>
+
+      <div class="message-overlay hidden" id="gameOver">
+        <div class="panel">
+          <h2>Game Over</h2>
+          <div id="gameOverText"></div>
+          <div class="menu-actions">
+            <button id="restartBtn">Play Again</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="player" id="player">
+        <div class="player-body">
+          <div class="player-photo">
+            <img id="playerImg" alt="Player Photo" />
+          </div>
+          <div class="player-torso"></div>
+          <div class="legs">
+            <div class="leg left"></div>
+            <div class="leg right"></div>
+          </div>
+        </div>
+      </div>
+
+      <button class="mobile-btn jump-btn" id="jumpBtn">JUMP</button>
+      <button class="mobile-btn shoot-btn" id="shootBtn">SHOOT</button>
+
+      <div class="ground" id="ground"></div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js")
+          .then(() => console.log("Service Worker registered"))
+          .catch(err => console.log("SW registration failed:", err));
+      });
+    }
+  </script>
+</body>
+</html>
